@@ -1,0 +1,27 @@
+import win.ui;
+/*DSG{{*/
+mainForm = win.form(text="Mp4Demo";right=757;bottom=467)
+mainForm.add()
+/*}}*/
+import wsock.tcp.simpleHttpServer; 
+import web.view;
+var httpServer= wsock.tcp.simpleHttpServer;
+/*
+httpServer.documentRoot="/www/"
+var url = httpServer.startUrl("index.html");
+*/
+
+//spa才会出现mp4无法加载的情况，而且多次点击运行偶尔能正常加载
+httpServer.documentRoot="/spa/dist/";
+var url = httpServer.startSpaUrl("index.html");
+
+var wb = web.view(mainForm);
+
+/*
+wb.enalbeDefaultContextMenus(false);
+wb.enalbeDevTools(false);
+*/
+
+wb.go(url);
+mainForm.show();
+return win.loopMessage();
